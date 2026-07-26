@@ -20,13 +20,13 @@
           else pkgs.glibcLocales.override args;
       in glibcLocales.overrideAttrs (base: {
         postPatch = base.postPatch + ''
-          cp ${./en_EU} localedata/locales/en_EU
-          echo 'en_EU.UTF-8/UTF-8 \' >>localedata/SUPPORTED
+          cp ${./en_RU} localedata/locales/en_RU
+          echo 'en_RU.UTF-8/UTF-8 \' >>localedata/SUPPORTED
         '';
       });
   in {
     nixosModules.default = { config, lib, pkgs, ... }: {
-      i18n.defaultLocale = lib.mkDefault "en_EU.UTF-8";
+      i18n.defaultLocale = lib.mkDefault "en_RU.UTF-8";
       i18n.glibcLocales = patchLocales pkgs {
         allLocales = builtins.any (x: x == "all")
           config.i18n.supportedLocales;
@@ -36,10 +36,10 @@
     };
 
     homeModules.default = { lib, pkgs, ... }: {
-      home.language.base = lib.mkDefault "en_EU.UTF-8";
+      home.language.base = lib.mkDefault "en_RU.UTF-8";
       i18n.glibcLocales = patchLocales pkgs {
         allLocales = false;
-        locales = [ "en_EU.UTF-8/UTF-8" ];
+        locales = [ "en_RU.UTF-8/UTF-8" ];
       };
     };
 
